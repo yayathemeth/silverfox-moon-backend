@@ -1,0 +1,14 @@
+MOON_SIGN_DESCRIPTIONS_1 = {
+    "Aries": "Bold emotions. Impulsive moods. The fire of instinct awakens action.",
+    "Taurus": "Steady hearts. Grounded feelings. The moon hums with earthy calm.",
+    "Gemini": "Curious minds. Scattered thoughts. The moon speaks in quicksilver words.",
+    "Cancer": "Nurturing waves. Sensitive tides. The moon returns to its home.",
+    "Leo": "Radiant hearts. Dramatic flair. The moon roars with emotional pride.",
+    "Virgo": "Refined emotions. Quiet introspection. The moon arranges feelings with care.",
+    "Libra": "Balanced moods. Harmonious longing. The moon seeks connection and peace.",
+    "Scorpio": "Intense tides. Hidden passions. The moon dives into the deep waters of psyche.",
+    "Sagittarius": "Restless hearts. Expansive dreams. The moon searches for truth and freedom.",
+    "Capricorn": "Disciplined emotions. Cool composure. The moon builds from the inside out.",
+    "Aquarius": "Detached feelings. Visionary vibes. The moon thinks beyond the now.",
+    "Pisces": "Dreamy tides. Mystical emotions. The moon dissolves into boundless waters."
+}

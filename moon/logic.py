@@ -22,22 +22,6 @@ PHASE_EMOJIS = {
     "Waning Crescent": "🌘"
 }
 
-
-MOON_SIGN_DESCRIPTIONS_1 = {
-    "Aries": "Bold emotions. Impulsive moods. The fire of instinct awakens action.",
-    "Taurus": "Steady hearts. Grounded feelings. The moon hums with earthy calm.",
-    "Gemini": "Curious minds. Scattered thoughts. The moon speaks in quicksilver words.",
-    "Cancer": "Nurturing waves. Sensitive tides. The moon returns to its home.",
-    "Leo": "Radiant hearts. Dramatic flair. The moon roars with emotional pride.",
-    "Virgo": "Refined emotions. Quiet introspection. The moon arranges feelings with care.",
-    "Libra": "Balanced moods. Harmonious longing. The moon seeks connection and peace.",
-    "Scorpio": "Intense tides. Hidden passions. The moon dives into the deep waters of psyche.",
-    "Sagittarius": "Restless hearts. Expansive dreams. The moon searches for truth and freedom.",
-    "Capricorn": "Disciplined emotions. Cool composure. The moon builds from the inside out.",
-    "Aquarius": "Detached feelings. Visionary vibes. The moon thinks beyond the now.",
-    "Pisces": "Dreamy tides. Mystical emotions. The moon dissolves into boundless waters."
-}
-
 MOON_SIGN_DESCRIPTIONS = {
     "Aries": "[ARIES] :: EMOTION CORE IGNITED → ⚠ impulse loop ↻ active",
     "Taurus": "[TAURUS] :: STABILITY MODE // ⬛ grounding signal: strong",
@@ -93,7 +77,6 @@ def get_moon_info(date):
 
     # Moon phase calculation
     phase = get_moon_phase_name(date)
-
     emoji = PHASE_EMOJIS.get(phase, "🌑")
 
     # Moon sign calculation
@@ -104,10 +87,19 @@ def get_moon_info(date):
     # Moon sign description
     description = MOON_SIGN_DESCRIPTIONS.get(moon_sign, "The moon travels through unknown realms.")
 
+    # Emotional text simulation (you can later make this dynamic or AI-generated)
+    emotional_text = f"""
+        Under the {phase.lower()} phase, the Moon drifts through the {moon_sign} skies.
+        Emotional tides pull gently, asking you to reflect inward and embrace the hidden currents beneath your surface.
+
+        Tonight, energies align around themes of {moon_sign.lower()} — inviting you to move slowly, to trust your instincts, and to surrender to the unspoken rhythms of change.
+        """
+
     return {
         "phase": phase,
         "sign": moon_sign,
         "emoji": emoji,
-        "description": description
+        "description": description,
+        "emotion_text": emotional_text.strip(),
     }
 
