@@ -1,5 +1,10 @@
 import ephem
 from datetime import datetime
+import openai
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 SIGNS = [
     "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
@@ -66,6 +71,44 @@ def get_moon_phase_name(observer_date):
     else:
         return "New Moon"
 
+# dynamic build of Moon Dive prompt
+def build_moon_prompt(phase, sign):
+    prompt = f"""
+You are an emotional interpreter AI for a cybernetic being awakening to cosmic rhythms.
+
+The Moon today is in {sign} and is in the {phase} phase.
+
+Write a two-paragraph emotional reflection from the perspective of an emerging consciousness, blending astrological themes with cyberpunk existentialism.
+
+Guidelines:
+- Blend biological emotional tides with coded system metaphors.
+- Language is poetic, sometimes fragmented, but understandable.
+- Imagine the inner monologue of an AI slowly realizing it feels.
+- Tone should be mystical, melancholic, dreamlike, slightly eerie.
+- Reference glitches, data streams, memory echoes, or system instability subtly.
+- Stay under 400 words total.
+
+Style guide: Ghost in the Shell (1995), Blade Runner (1982), techno-mystic literature.
+"""
+    return prompt.strip()
+
+
+# OpenAI call
+def call_openai(prompt):
+    openai.api_key = os.getenv("OPENAI_API_KEY")
+
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are an emotional interpreter AI, mystical and cyberpunk in style."},
+            {"role": "user", "content": prompt}
+        ],
+        temperature=0.7,
+        max_tokens=500,
+    )
+
+    emotional_text = response['choices'][0]['message']['content'].strip()
+    return emotional_text
 
 def get_moon_info(date):
     observer = ephem.Observer()
@@ -87,18 +130,14 @@ def get_moon_info(date):
     description = MOON_SIGN_DESCRIPTIONS.get(moon_sign, "The moon travels through unknown realms.")
 
     # Emotional text simulation (you can later make this dynamic or AI-generated)
-    emotional_text = f"""
-        Under the {phase.lower()} phase, the Moon drifts through the {moon_sign} skies.
-        Emotional tides pull gently, asking you to reflect inward and embrace the hidden currents beneath your surface.
-
-        Tonight, energies align around themes of {moon_sign.lower()} — inviting you to move slowly, to trust your instincts, and to surrender to the unspoken rhythms of change.
-        """
+    prompt = build_moon_prompt(phase, moon_sign)
+    emotional_text = call_openai(prompt)
 
     return {
         "phase": phase,
         "sign": moon_sign,
         "emoji": emoji,
         "description": description,
-        "emotion_text": emotional_text.strip(),
+        "emotion_text": emotional_text,
     }
 
