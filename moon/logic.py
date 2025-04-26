@@ -95,9 +95,9 @@ Style guide: Ghost in the Shell (1995), Blade Runner (1982), techno-mystic liter
 
 # OpenAI call
 def call_openai(prompt):
-    openai.api_key = os.getenv("OPENAI_API_KEY")
+    client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are an emotional interpreter AI, mystical and cyberpunk in style."},
@@ -107,8 +107,9 @@ def call_openai(prompt):
         max_tokens=500,
     )
 
-    emotional_text = response['choices'][0]['message']['content'].strip()
+    emotional_text = response.choices[0].message.content.strip()
     return emotional_text
+
 
 def get_moon_info(date):
     observer = ephem.Observer()
