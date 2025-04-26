@@ -2,6 +2,7 @@ from .astronomy import get_moon_phase_name, SIGNS, PHASE_EMOJIS, MOON_SIGN_DESCR
 from .ai_prompt import build_moon_prompt
 from .openai_client import call_openai
 import ephem
+from .models import MoonMemory
 
 def get_moon_info(date):
     observer = ephem.Observer()
@@ -25,6 +26,21 @@ def get_moon_info(date):
     # Emotional text generation
     prompt = build_moon_prompt(phase, moon_sign)
     emotional_text = call_openai(prompt)
+
+    # Save memory if not already saved
+    from django.utils.timezone import now
+    memory_date = now().date()
+
+    memory, created = MoonMemory.objects.get_or_create(
+        date=memory_date,
+        defaults={
+            'phase': phase,
+            'sign': moon_sign,
+            'emoji': emoji,
+            'description': description,
+            'emotion_text': emotional_text
+        }
+    )
 
     return {
         "phase": phase,
