@@ -47,25 +47,24 @@ def get_moon_phase_name(observer_date):
     cycle_length = (next_new_moon.datetime().date() - last_new_moon.datetime().date()).days
     phase_fraction = moon_age / cycle_length
 
-    if phase_fraction < 0.0625:
+    if phase_fraction < 0.02 or phase_fraction > 0.98:
         return "New Moon"
-    elif phase_fraction < 0.1875:
+    elif 0.02 <= phase_fraction < 0.24:
         return "Waxing Crescent"
-    elif phase_fraction < 0.3125:
+    elif 0.24 <= phase_fraction < 0.26:
         return "First Quarter"
-    elif phase_fraction < 0.4375:
+    elif 0.26 <= phase_fraction < 0.48:
         return "Waxing Gibbous"
-    elif phase_fraction < 0.5625:
+    elif 0.48 <= phase_fraction < 0.52:
         return "Full Moon"
-    elif phase_fraction < 0.6875:
+    elif 0.52 <= phase_fraction < 0.74:
         return "Waning Gibbous"
-    elif phase_fraction < 0.8125:
+    elif 0.74 <= phase_fraction < 0.76:
         return "Last Quarter"
-    elif phase_fraction < 0.9375:
+    elif 0.76 <= phase_fraction <= 0.98:
         return "Waning Crescent"
     else:
         return "New Moon"
-
 
 
 def get_moon_info(date):
